@@ -1,45 +1,44 @@
 <?php
-$config = require __DIR__ . '/config.php';
+require __DIR__ . '/includes/db.php';
+require __DIR__ . '/includes/functions.php';
 
-$dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}";
+// Numărul total de cărți și ultimele 3 apariții (din baza de date)
+$total = (int) $pdo->query('SELECT COUNT(*) FROM carti')->fetchColumn();
 
-try {
-    $pdo = new PDO($dsn, $config['user'], $config['pass'], [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
+$recomandate = $pdo->query(
+    'SELECT c.id_carte, c.titlu, c.an_aparitie, c.imagine_coperta, a.nume AS autor
+     FROM carti c
+     JOIN autori a ON a.id_autor = c.id_autor
+     ORDER BY c.an_aparitie DESC
+     LIMIT 3'
+)->fetchAll();
 
-    $total = $pdo->query('SELECT COUNT(*) FROM carti')->fetchColumn();
+$genuri = genuri_pe_carte($pdo);
 
-    $carti = $pdo->query(
-        'SELECT c.titlu, c.an_aparitie, a.nume AS autor
-         FROM carti c
-         JOIN autori a ON a.id_autor = c.id_autor
-         ORDER BY c.an_aparitie'
-    )->fetchAll();
-} catch (PDOException $e) {
-    http_response_code(500);
-    exit('Eroare la conectarea la baza de date: ' . htmlspecialchars($e->getMessage()));
-}
+$titlu  = 'Acasă';
+$pagina = 'acasa';
+require __DIR__ . '/includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="ro">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Biblioteca virtuală: Thriller și Mister</title>
-</head>
-<body>
-    <h1>Hello! Conexiunea la baza de date funcționează.</h1>
-    <p>În bibliotecă sunt <strong><?= (int) $total ?></strong> cărți.</p>
 
-    <ul>
-        <?php foreach ($carti as $carte): ?>
-            <li>
-                <?= htmlspecialchars($carte['titlu']) ?>
-                (<?= htmlspecialchars($carte['autor']) ?>, <?= (int) $carte['an_aparitie'] ?>)
-            </li>
+<section class="hero">
+    <h1>Biblioteca virtuală: Thriller și Mister</h1>
+    <p class="lead">
+        <?= $total ?> romane care au definit genul, de la clasicii secolului al XIX-lea
+        până la bestsellerurile ultimilor ani.
+    </p>
+    <p><a class="btn" href="colectie.php">Explorează colecția</a></p>
+</section>
+
+<section aria-labelledby="titlu-recomandate">
+    <h2 id="titlu-recomandate">Cărți recomandate</h2>
+
+    <div class="grila">
+        <?php foreach ($recomandate as $carte): ?>
+            <?php card_carte($carte, $genuri[$carte['id_carte']] ?? [], 3); ?>
         <?php endforeach; ?>
-    </ul>
-</body>
-</html>
+    </div>
+
+    <p><a class="btn btn-secundar" href="colectie.php">Vezi toată colecția (<?= $total ?> cărți)</a></p>
+</section>
+
+<?php require __DIR__ . '/includes/footer.php'; ?>

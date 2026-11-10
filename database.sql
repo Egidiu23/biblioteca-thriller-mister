@@ -1,4 +1,7 @@
-CREATE DATABASE IF NOT EXISTS biblioteca
+-- Biblioteca virtuală: Thriller și Mister
+-- Atenție: scriptul șterge și recreează baza de date `biblioteca`.
+DROP DATABASE IF EXISTS biblioteca;
+CREATE DATABASE biblioteca
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE biblioteca;
 
@@ -45,6 +48,8 @@ CREATE TABLE contact_mesaje (
   data_trimiterii DATETIME NOT NULL
 ) ENGINE=InnoDB;
 
+-- ---------- Date de test (12 exponate) ----------
+
 INSERT INTO autori (id_autor, nume, tara, an_nastere, an_deces) VALUES
 (1,  'Feodor Dostoievski', 'Rusia',          1821, 1881),
 (2,  'Arthur Conan Doyle', 'Marea Britanie', 1859, 1930),
@@ -68,19 +73,19 @@ INSERT INTO genuri (id_gen, nume) VALUES
 (6, 'Thriller de conspirație'),
 (7, 'Thriller nordic');
 
-INSERT INTO carti (id_carte, id_autor, titlu, an_aparitie) VALUES
-(1,  1,  'Crimă și pedeapsă',        1866),
-(2,  2,  'Câinele din Baskerville',  1902),
-(3,  3,  'Crima din Orient Express', 1934),
-(4,  4,  'Rebecca',                  1938),
-(5,  5,  'Numele trandafirului',     1980),
-(6,  6,  'Tăcerea mieilor',          1988),
-(7,  7,  'Codul lui Da Vinci',       2003),
-(8,  8,  'Fata cu un dragon tatuat', 2005),
-(9,  9,  'Fata dispărută',           2012),
-(10, 10, 'Fata din tren',            2015),
-(11, 11, 'Verity',                   2018),
-(12, 12, 'Pacienta tăcută',          2019);
+INSERT INTO carti (id_carte, id_autor, titlu, an_aparitie, descriere) VALUES
+(1,  1,  'Crimă și pedeapsă',        1866, 'Un student sărac din Sankt Petersburg comite o crimă și este măcinat de vinovăție, în timp ce un anchetator îl urmărește.'),
+(2,  2,  'Câinele din Baskerville',  1902, 'Sherlock Holmes investighează legenda unui câine fantomatic care amenință o familie nobilă.'),
+(3,  3,  'Crima din Orient Express', 1934, 'Hercule Poirot anchetează un asasinat petrecut într-un tren blocat de zăpadă.'),
+(4,  4,  'Rebecca',                  1938, 'O tânără mireasă ajunge la conacul Manderley, bântuit de amintirea primei soții a soțului ei.'),
+(5,  5,  'Numele trandafirului',     1980, 'Un călugăr-detectiv investighează morți misterioase într-o mănăstire medievală.'),
+(6,  6,  'Tăcerea mieilor',          1988, 'O stagiară FBI cere ajutorul unui criminal închis pentru a prinde un ucigaș în serie.'),
+(7,  7,  'Codul lui Da Vinci',       2003, 'Un profesor de simbologie descifrează indicii ascunse în opere de artă, urmărit de un secret vechi.'),
+(8,  8,  'Fata cu un dragon tatuat', 2005, 'Un jurnalist și o hackeriță investighează dispariția unei tinere dintr-o familie bogată.'),
+(9,  9,  'Fata dispărută',           2012, 'La aniversarea căsătoriei, Amy dispare, iar soțul ei devine principalul suspect.'),
+(10, 10, 'Fata din tren',            2015, 'O femeie care privește zilnic o casă din tren se trezește implicată într-o dispariție.'),
+(11, 11, 'Verity',                   2018, 'O scriitoare găsește un manuscris tulburător în casa unei autoare grav rănite.'),
+(12, 12, 'Pacienta tăcută',          2019, 'Un psihoterapeut încearcă să afle de ce o pictoriță nu mai vorbește după ce și-a ucis soțul.');
 
 INSERT INTO carti_genuri (id_carte, id_gen) VALUES
 (1,1),(2,2),(3,2),(4,3),(5,4),(6,5),(7,6),(8,7),(9,5),(10,5),(11,5),(12,5);

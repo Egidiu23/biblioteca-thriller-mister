@@ -1,0 +1,464 @@
+/* Biblioteca virtuală: Thriller și Mister
+   Foaie de stil principală (layout responsiv, paleta din Etapa 1) */
+
+/* ---------- Variabile: paleta cromatică și fonturile ---------- */
+:root {
+    --fundal: #15131A;
+    --suprafata: #1F1C24;
+    --text: #EDE6DA;
+    --text-secundar: #A39E93;
+    --accent: #B3202A;
+    --accent-hover: #CF2A36;
+    --auriu: #C8A24A;
+    --linie: #4A4552;
+    --font-titluri: "Playfair Display", Georgia, "Times New Roman", serif;
+    --font-text: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ---------- Baza ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--fundal);
+    color: var(--text);
+    font-family: var(--font-text);
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-titluri);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 0.6em;
+}
+
+h1 { font-size: clamp(1.9rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 3.5vw, 1.9rem); }
+h3 { font-size: 1.2rem; }
+
+p { margin: 0 0 1em; }
+
+a { color: var(--auriu); }
+a:hover { color: var(--text); }
+
+:focus-visible {
+    outline: 3px solid var(--auriu);
+    outline-offset: 2px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: min(1100px, 100% - 2rem);
+    margin-inline: auto;
+}
+
+/* Link de accesibilitate: apare doar când e selectat cu tasta Tab */
+.sari {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--auriu);
+    color: #000;
+    padding: 0.5rem 1rem;
+    z-index: 10;
+}
+.sari:focus { left: 1rem; top: 1rem; }
+
+/* ---------- Antet și meniu ---------- */
+.antet {
+    background: var(--suprafata);
+    border-bottom: 2px solid var(--auriu);
+}
+
+.antet-interior {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    padding: 0.9rem 0;
+}
+
+.logo {
+    font-family: var(--font-titluri);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+}
+.logo span { color: var(--auriu); }
+.logo:hover { color: var(--text); }
+
+.meniu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.meniu a {
+    display: inline-block;
+    padding: 0.4rem 0;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+}
+.meniu a:hover,
+.meniu a.activ {
+    color: var(--auriu);
+    border-bottom-color: var(--auriu);
+}
+
+/* ---------- Conținut principal ---------- */
+main {
+    flex: 1;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.hero {
+    padding: 2rem 0 2.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--linie);
+}
+.hero .lead {
+    max-width: 40rem;
+    font-size: 1.15rem;
+    color: var(--text-secundar);
+}
+
+/* ---------- Butoane ---------- */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #fff;
+}
+
+.btn-secundar {
+    background: transparent;
+    border-color: var(--auriu);
+    color: var(--auriu);
+}
+.btn-secundar:hover {
+    background: var(--auriu);
+    border-color: var(--auriu);
+    color: #000;
+}
+
+/* ---------- Grila de cărți și carduri ---------- */
+.grila {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--suprafata);
+    border: 1px solid var(--linie);
+    border-radius: 6px;
+}
+.card:hover { border-color: var(--auriu); }
+
+.card-corp {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 1rem;
+}
+
+.card-titlu { margin: 0; font-size: 1.1rem; }
+.card-titlu a { color: var(--text); text-decoration: none; }
+.card-titlu a:hover { color: var(--auriu); }
+
+.card-autor {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secundar);
+}
+
+.card .btn {
+    margin-top: auto;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+}
+
+.etichete { margin: 0; }
+.eticheta {
+    display: inline-block;
+    margin: 0 0.25rem 0.25rem 0;
+    padding: 0.1rem 0.6rem;
+    border: 1px solid var(--auriu);
+    border-radius: 999px;
+    color: var(--auriu);
+    font-size: 0.78rem;
+}
+
+/* ---------- Coperta generată (când nu există imagine) ---------- */
+.coperta {
+    aspect-ratio: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    border-left: 6px solid rgba(0, 0, 0, 0.35);
+    background: linear-gradient(160deg,
+        hsl(var(--nuanta) 45% 26%),
+        hsl(var(--nuanta) 50% 12%));
+    color: var(--text);
+}
+
+.coperta-titlu {
+    font-family: var(--font-titluri);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.coperta-autor {
+    color: var(--auriu);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.coperta-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+/* ---------- Formulare (filtre și contact) ---------- */
+.filtre {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--suprafata);
+    border: 1px solid var(--linie);
+    border-radius: 6px;
+}
+
+.camp {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.camp label {
+    font-size: 0.85rem;
+    color: var(--text-secundar);
+}
+.camp-cautare { flex: 1 1 220px; }
+
+input,
+select,
+textarea {
+    min-width: 0;
+    padding: 0.55rem 0.7rem;
+    background: var(--fundal);
+    color: var(--text);
+    border: 1px solid var(--linie);
+    border-radius: 4px;
+    font: inherit;
+}
+textarea {
+    min-height: 9rem;
+    resize: vertical;
+}
+
+.formular {
+    display: grid;
+    gap: 1rem;
+    max-width: 560px;
+}
+
+.alerta {
+    margin-bottom: 1.25rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid;
+    border-radius: 6px;
+}
+.alerta-ok { background: #16281D; border-color: #3D8B5A; }
+.alerta-eroare { background: #2B1417; border-color: var(--accent); }
+.alerta ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+
+.gol {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--text-secundar);
+    background: var(--suprafata);
+    border: 1px dashed var(--linie);
+    border-radius: 6px;
+}
+
+/* ---------- Pagina de detaliu ---------- */
+.firimituri ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+    color: var(--text-secundar);
+}
+.firimituri li + li::before {
+    content: "›";
+    margin-right: 0.4rem;
+}
+
+.detaliu {
+    display: grid;
+    grid-template-columns: minmax(180px, 300px) 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+.detaliu .coperta { border-radius: 6px; }
+.detaliu .etichete { margin-bottom: 1.5rem; }
+.detaliu .coperta-titlu { font-size: 1.6rem; }
+.detaliu-autor {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-secundar);
+}
+
+.detalii-lista {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 1.25rem;
+    margin: 1.25rem 0;
+}
+.detalii-lista dt { color: var(--text-secundar); }
+.detalii-lista dd { margin: 0; }
+
+.navigare-carti {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--linie);
+}
+
+/* ---------- Pagina „Despre” ---------- */
+.statistici {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+    padding: 0;
+    list-style: none;
+}
+.statistici li {
+    padding: 1rem;
+    text-align: center;
+    background: var(--suprafata);
+    border: 1px solid var(--linie);
+    border-radius: 6px;
+    color: var(--text-secundar);
+}
+.statistici strong {
+    display: block;
+    font-family: var(--font-titluri);
+    font-size: 2rem;
+    color: var(--auriu);
+}
+
+.text-lung { max-width: 42rem; }
+
+/* ---------- Subsol ---------- */
+.subsol {
+    padding: 1.25rem 0;
+    background: var(--suprafata);
+    border-top: 2px solid var(--auriu);
+    color: var(--text-secundar);
+}
+.subsol p { margin: 0; }
+
+.subsol-interior {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+}
+
+.meniu-subsol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* ---------- Responsiv ---------- */
+@media (max-width: 700px) {
+    .detaliu { grid-template-columns: 1fr; }
+    .detaliu .coperta,
+    .detaliu .coperta-img {
+        width: 100%;
+        max-width: 240px;
+    }
+}
+
+@media (max-width: 520px) {
+    /* Meniul trece pe un rând propriu, cu zone de atingere mai mari */
+    .antet-interior { flex-direction: column; align-items: flex-start; }
+    .meniu { gap: 0 1.1rem; }
+    .meniu a { padding: 0.6rem 0; }
+
+    /* Cardurile devin orizontale: coperta în stânga, textul în dreapta */
+    .grila { grid-template-columns: 1fr; }
+    .card { flex-direction: row; }
+    .card .coperta,
+    .card .coperta-img {
+        flex: 0 0 110px;
+        width: 110px;
+        aspect-ratio: auto;
+        align-self: stretch;
+        padding: 0.6rem;
+    }
+    .card .coperta-titlu { font-size: 0.8rem; }
+    .card .coperta-autor { font-size: 0.55rem; }
+
+    .filtre { flex-direction: column; align-items: stretch; }
+    .camp-cautare { flex: 0 0 auto; }
+}
